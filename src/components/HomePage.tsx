@@ -8,8 +8,11 @@ import Grid from "@mui/material/Grid";
 
 import ProductInfoModal from "./ProductInfoModal";
 
-const HomePage = () => {
-  const [cart, setCart] = useState<Array<Product>>([]);
+interface HomePageProps {
+  cart: Array<Product>;
+  addToCart: (p: Product) => void;
+}
+const HomePage = (props: HomePageProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [productList, selectedProduct, setSelectedProduct, isLoading] =
@@ -22,7 +25,6 @@ const HomePage = () => {
         rowSpacing={3}
         columnSpacing={2}
         justifyContent={"center"}
-        height={"100vh"}
       >
         {!isLoading ? (
           productList.map((p: Product) => (
@@ -33,9 +35,7 @@ const HomePage = () => {
                   setIsModalOpen(true);
                   setSelectedProduct(p);
                 }}
-                onAddToCart={() => {
-                  setCart([...cart, p]);
-                }}
+                onAddToCart={() => props.addToCart(p)}
               />
             </Grid>
           ))
@@ -44,13 +44,18 @@ const HomePage = () => {
             <LinearProgress />
           </Box>
         )}
+        <ProductInfoModal
+          testid="product-info"
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          product={selectedProduct}
+          addToCart={() => {
+            if (selectedProduct) {
+              props.addToCart(selectedProduct);
+            }
+          }}
+        />
       </Grid>
-      <ProductInfoModal
-        testid="product-info"
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
-        product={selectedProduct}
-      />
     </>
   );
 };

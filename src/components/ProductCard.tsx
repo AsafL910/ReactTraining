@@ -12,8 +12,8 @@ import {
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart: any;
-  onClickDetails: any;
+  onAddToCart: () => void;
+  onClickDetails: () => void;
 }
 
 const ProductCard = (props: ProductCardProps) => {

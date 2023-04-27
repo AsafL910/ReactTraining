@@ -7,8 +7,12 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Tab } from "@mui/material";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
 
 import "./App.css";
+import Product from "./types/Product";
 
 function App() {
   const [pageIndex, setPageIndex] = useState<string>("home");
@@ -16,19 +20,39 @@ function App() {
     setPageIndex(newValue);
   };
 
+  const [cart, setCart] = useState<Array<Product>>([]);
+
+  const addToCart = (p: Product): void => {
+    setCart([...cart, p]);
+  };
+
+  const [userSum, setUserSum] = useState<number>(1000);
+
   return (
-    <TabContext value={pageIndex}>
-      <TabList value={pageIndex} onChange={handleChange}>
-        <Tab label={<Home />} value={"home"} />
-        <Tab label={<ShoppingCart />} value={"cart"} />
-      </TabList>
-      <TabPanel key={"home"} value="home">
-        <HomePage />
-      </TabPanel>
-      <TabPanel key={"cart"} value="cart">
-        <CartPage />
-      </TabPanel>
-    </TabContext>
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">{`סכום כולל: ${userSum}₪`}</Typography>
+        </Toolbar>
+      </AppBar>
+      <TabContext value={pageIndex}>
+        <TabList value={pageIndex} onChange={handleChange}>
+          <Tab label={<Home />} value={"home"} />
+          <Tab label={<ShoppingCart />} value={"cart"} />
+        </TabList>
+        <TabPanel key={"home"} value="home">
+          <HomePage cart={cart} addToCart={addToCart} />
+        </TabPanel>
+        <TabPanel key={"cart"} value="cart">
+          <CartPage
+            cart={cart}
+            setCart={setCart}
+            userSum={userSum}
+            setUserSum={setUserSum}
+          />
+        </TabPanel>
+      </TabContext>
+    </>
   );
 }
 

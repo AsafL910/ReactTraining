@@ -27,7 +27,7 @@ const useProductList = (): [
         setProductList(data);
         setSelectedProduct(data[0]);
         setIsLoading(false);
-      }, 1000);
+      }, 300);
     };
     fetchData();
   }, []);

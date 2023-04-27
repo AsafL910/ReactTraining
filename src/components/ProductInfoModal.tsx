@@ -12,6 +12,7 @@ interface ProductInfoModalProps extends BaseComponentProps {
   product?: Product;
   isOpen: boolean;
   setIsOpen: (b: boolean) => void;
+  addToCart: (product: Product) => void;
 }
 
 const ProductInfoModal = (props: ProductInfoModalProps) => {
@@ -25,7 +26,15 @@ const ProductInfoModal = (props: ProductInfoModalProps) => {
         <DialogContentText>{props.product?.description}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleClose}>
+        <Button
+          autoFocus
+          onClick={() => {
+            if (props.product) {
+              props.addToCart(props.product);
+            }
+            handleClose();
+          }}
+        >
           הוסף לעגלה
         </Button>
         <Button onClick={handleClose} autoFocus>
