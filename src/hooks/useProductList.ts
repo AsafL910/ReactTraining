@@ -1,26 +1,38 @@
-import { useState, useEffect } from 'react';
 import productsData from "@/data/Products.json";
-import Product from '@/types/Product';
+import Product from "@/types/Product";
+import { useEffect, useState } from "react";
 
-const useProductList = ()  : [Product[], Product | undefined, (product: Product) => void] => {
+const useProductList = (): [
+  Product[],
+  Product | undefined,
+  (product: Product) => void,
+  boolean
+] => {
   const [productList, setProductList] = useState<Array<Product>>([]);
-  const [selectedProduct, setSelectedProduct] = useState<Product>();  
+  const [selectedProduct, setSelectedProduct] = useState<Product>();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-      const data = [...productsData.map((productData) => ({
-        id: productData.id,
-        name: productData.name,
-        description: productData.description,
-        price: productData.price,
-        image: productData.image,
-        category: productData.category,
-      }))];
+    const fetchData = async () => {
+      setTimeout(() => {
+        const data = productsData.map((productData) => ({
+          id: productData.id,
+          name: productData.name,
+          description: productData.description,
+          price: productData.price,
+          image: productData.image,
+          category: productData.category,
+        }));
 
-      setProductList(data);
-      setSelectedProduct(data[0]);
+        setProductList(data);
+        setSelectedProduct(data[0]);
+        setIsLoading(false);
+      }, 1000);
+    };
+    fetchData();
   }, []);
 
-  return [productList, selectedProduct, setSelectedProduct];
+  return [productList, selectedProduct, setSelectedProduct, isLoading];
 };
 
 export default useProductList;
