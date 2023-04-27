@@ -8,8 +8,9 @@ import Grid from "@mui/material/Grid";
 
 import ProductInfoModal from "./ProductInfoModal";
 import Alert from "./Alert";
+import BaseComponentProps from "@/types/BaseComponentProps";
 
-interface HomePageProps {
+interface HomePageProps extends BaseComponentProps {
   cart: Array<Product>;
   addToCart: (p: Product) => void;
 }
@@ -28,9 +29,10 @@ const HomePage = (props: HomePageProps) => {
         justifyContent={"center"}
       >
         {!isLoading ? (
-          productList.map((p: Product) => (
+          productList.map((p: Product, index: number) => (
             <Grid item key={p.id}>
               <ProductCard
+                testid={`product-card-${index}_${props.testid}`}
                 product={p}
                 onClickDetails={() => {
                   setIsModalOpen(true);
@@ -59,7 +61,7 @@ const HomePage = (props: HomePageProps) => {
             }
           }}
         />
-        <Alert isOpen={isAddedToCart} handleClose={()=>setIsAddedToCart(false)} message={`המוצר נוסף לעגלה`} severity="success"/>
+        <Alert testid={`add-cart-alert_${props.testid}`} isOpen={isAddedToCart} handleClose={()=>setIsAddedToCart(false)} message={`המוצר נוסף לעגלה`} severity="success"/>
       </Grid>
   );
 };

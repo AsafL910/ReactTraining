@@ -1,7 +1,8 @@
+import BaseComponentProps from "@/types/BaseComponentProps";
 import { Snackbar } from "@mui/material";
 import MuiAlert, { AlertColor } from "@mui/material/Alert";
 
-interface AlertProps {
+interface AlertProps extends BaseComponentProps{
   isOpen: boolean;
   handleClose: () => void;
   severity: AlertColor;
@@ -16,6 +17,7 @@ const Alert = (props: AlertProps) => {
       onClose={props.handleClose}
     >
       <MuiAlert
+        data-testid={props.testid}
         onClose={props.handleClose}
         variant="filled"
         severity={props.severity}

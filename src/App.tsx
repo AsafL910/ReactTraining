@@ -32,7 +32,7 @@ function App() {
     <>
       <AppBar position="sticky">
         <Toolbar>
-          <Typography variant="h6">{`סכום כולל: ${userSum}₪`}</Typography>
+          <Typography data-testid={"total-sum_app-bar"} variant="h6">{`סכום כולל: ${userSum}₪`}</Typography>
         </Toolbar>
       </AppBar>
       <TabContext value={pageIndex}>
@@ -41,10 +41,11 @@ function App() {
           <Tab label={<ShoppingCart />} value={"cart"} />
         </TabList>
         <TabPanel key={"home"} value="home">
-          <HomePage cart={cart} addToCart={addToCart} />
+          <HomePage cart={cart} addToCart={addToCart} testid="home-page" />
         </TabPanel>
         <TabPanel key={"cart"} value="cart">
           <CartPage
+            testid="cart-page"
             cart={cart}
             setCart={setCart}
             userSum={userSum}
