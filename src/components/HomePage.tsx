@@ -7,6 +7,7 @@ import { Box, LinearProgress } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 import ProductInfoModal from "./ProductInfoModal";
+import Alert from "./Alert";
 
 interface HomePageProps {
   cart: Array<Product>;
@@ -14,12 +15,12 @@ interface HomePageProps {
 }
 const HomePage = (props: HomePageProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
 
   const [productList, selectedProduct, setSelectedProduct, isLoading] =
     useProductList();
 
   return (
-    <>
       <Grid
         container
         rowSpacing={3}
@@ -35,7 +36,10 @@ const HomePage = (props: HomePageProps) => {
                   setIsModalOpen(true);
                   setSelectedProduct(p);
                 }}
-                onAddToCart={() => props.addToCart(p)}
+                onAddToCart={() => {
+                  props.addToCart(p)
+                  setIsAddedToCart(true)
+                }}
               />
             </Grid>
           ))
@@ -55,8 +59,8 @@ const HomePage = (props: HomePageProps) => {
             }
           }}
         />
+        <Alert isOpen={isAddedToCart} handleClose={()=>setIsAddedToCart(false)} message={`המוצר נוסף לעגלה`} severity="success"/>
       </Grid>
-    </>
   );
 };
 export default HomePage;

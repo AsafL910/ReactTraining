@@ -40,7 +40,7 @@ const ProductCard = (props: ProductCardProps) => {
           sx={{ margin: "10px" }}
           variant="contained"
           onClick={props.onAddToCart}
-        >
+          >
           הוסף לעגלה
           <ShoppingCart />
         </Button>
@@ -49,7 +49,7 @@ const ProductCard = (props: ProductCardProps) => {
           variant="contained"
           color="secondary"
           onClick={props.onClickDetails}
-        >
+          >
           פרטים
           <Info />
         </Button>

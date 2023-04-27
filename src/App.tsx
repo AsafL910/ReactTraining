@@ -30,7 +30,7 @@ function App() {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <Typography variant="h6">{`סכום כולל: ${userSum}₪`}</Typography>
         </Toolbar>
@@ -49,7 +49,7 @@ function App() {
             setCart={setCart}
             userSum={userSum}
             setUserSum={setUserSum}
-          />
+            />
         </TabPanel>
       </TabContext>
     </>
