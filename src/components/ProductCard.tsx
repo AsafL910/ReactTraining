@@ -32,13 +32,18 @@ const ProductCard = (props: ProductCardProps) => {
       />
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography
-        data-testid={`product-name_${props.testid}`}
-        gutterBottom variant="h5" component="div">
+          data-testid={`product-name_${props.testid}`}
+          gutterBottom
+          variant="h5"
+          component="div"
+        >
           {props.product.name}
         </Typography>
-        <Typography 
-        data-testid={`product-price_${props.testid}`}
-        variant="h6" color="text.secondary">
+        <Typography
+          data-testid={`product-price_${props.testid}`}
+          variant="h6"
+          color="text.secondary"
+        >
           {`${props.product.price}₪`}
         </Typography>
       </CardContent>
@@ -48,7 +53,7 @@ const ProductCard = (props: ProductCardProps) => {
           sx={{ margin: "10px" }}
           variant="contained"
           onClick={props.onAddToCart}
-          >
+        >
           הוסף לעגלה
           <ShoppingCart />
         </Button>
@@ -58,7 +63,7 @@ const ProductCard = (props: ProductCardProps) => {
           variant="contained"
           color="secondary"
           onClick={props.onClickDetails}
-          >
+        >
           פרטים
           <Info />
         </Button>

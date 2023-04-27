@@ -1,8 +1,9 @@
 import BaseComponentProps from "@/types/BaseComponentProps";
+
 import { Snackbar } from "@mui/material";
 import MuiAlert, { AlertColor } from "@mui/material/Alert";
 
-interface AlertProps extends BaseComponentProps{
+interface AlertProps extends BaseComponentProps {
   isOpen: boolean;
   handleClose: () => void;
   severity: AlertColor;

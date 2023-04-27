@@ -1,3 +1,4 @@
+import BaseComponentProps from "@/types/BaseComponentProps";
 import Product from "@/types/Product";
 import { useState } from "react";
 
@@ -8,20 +9,20 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 
-import OrderProgressModal from "./OrderProgressModal";
 import Alert from "./Alert";
-import BaseComponentProps from "@/types/BaseComponentProps";
+import OrderProgressModal from "./OrderProgressModal";
 
 interface CartPageProps extends BaseComponentProps {
   cart: Array<Product>;
   userSum: number;
-  setUserSum: (sum: number) => void;
+  setUserSum: React.Dispatch<React.SetStateAction<number>>;
   setCart: (cart: Array<Product>) => void;
 }
 const CartPage = (props: CartPageProps) => {
   const [isOrdering, setIsOrdering] = useState<boolean>(false);
   const [orderedProducts, setOrderedProducts] = useState<number>(0);
   const [isError, setIsError] = useState<boolean>(false);
+  const [isOrderComplete, setIsOrderComplete] = useState<boolean>(false);
 
   const totalPrice: number = props.cart.reduce(
     (total: number, product: Product) => total + product.price,
@@ -44,13 +45,15 @@ const CartPage = (props: CartPageProps) => {
   const order = (p: Product, index: number) => {
     setTimeout(() => {
       setOrderedProducts((previous) => previous + 1);
+      props.setUserSum((userSum: number) => userSum - p.price);
       if (index === props.cart.length - 1) {
-        props.setUserSum(props.userSum - totalPrice);
         setIsOrdering(false);
         setOrderedProducts(0);
         props.setCart([]);
+        //TODO: success alert doesnt work here
+        setIsOrderComplete(true);
       }
-    }, index * 1000);
+    }, index * 500);
   };
 
   return (
@@ -67,7 +70,10 @@ const CartPage = (props: CartPageProps) => {
           >{`הזמן ${totalPrice}₪`}</Button>
           <List data-testid={`cart-list_${props.testid}`}>
             {props.cart.map((product: Product, index: number) => (
-              <ListItem key={product.id + index} data-testid={`cart-item-${index}_${props.testid}`}>
+              <ListItem
+                key={product.id + index}
+                data-testid={`cart-item-${index}_${props.testid}`}
+              >
                 <ListItemAvatar>
                   <img
                     data-testid={`cart-item-image-${index}_${props.testid}`}
@@ -77,9 +83,9 @@ const CartPage = (props: CartPageProps) => {
                     style={{ borderRadius: "50px" }}
                   />
                 </ListItemAvatar>
-                <ListItemText 
+                <ListItemText
                   data-testid={`cart-item-text-${index}_${props.testid}`}
-                  sx={{textAlign: "right", marginRight: '20px'}}
+                  sx={{ textAlign: "right", marginRight: "20px" }}
                   primary={product.name}
                   secondary={product.price}
                 />
@@ -93,7 +99,20 @@ const CartPage = (props: CartPageProps) => {
             value={orderedProducts}
             maxValue={props.cart.length}
           />
-          <Alert testid={`alert-error_${props.testid}`} isOpen={isError} handleClose={()=> setIsError(false)} severity="error" message="ההזמנה לא הושלמה"/>
+          <Alert
+            testid={`alert-error_${props.testid}`}
+            isOpen={isError}
+            handleClose={() => setIsError(false)}
+            severity="error"
+            message="ההזמנה לא הושלמה"
+          />
+          <Alert
+            testid={`alert-success_${props.testid}`}
+            isOpen={isOrderComplete}
+            handleClose={() => setIsOrderComplete(false)}
+            severity="success"
+            message="ההזמנה הושלמה"
+          />
         </>
       )}
     </>

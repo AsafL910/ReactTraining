@@ -25,7 +25,10 @@ const ProductInfoModal = (props: ProductInfoModalProps) => {
       <DialogContent>
         <DialogContentText>{props.product?.description}</DialogContentText>
         <DialogContentText>מחיר: {props.product?.price}₪</DialogContentText>
-        <img src={props.product?.image} style={{maxWidth: 300, maxHeight: 400}}/>
+        <img
+          src={props.product?.image}
+          style={{ maxWidth: 300, maxHeight: 400 }}
+        />
       </DialogContent>
       <DialogActions>
         <Button

@@ -32,7 +32,10 @@ function App() {
     <>
       <AppBar position="sticky">
         <Toolbar>
-          <Typography data-testid={"total-sum_app-bar"} variant="h6">{`סכום כולל: ${userSum}₪`}</Typography>
+          <Typography
+            data-testid={"total-sum_app-bar"}
+            variant="h6"
+          >{`סכום כולל: ${userSum}₪`}</Typography>
         </Toolbar>
       </AppBar>
       <TabContext value={pageIndex}>
@@ -50,7 +53,7 @@ function App() {
             setCart={setCart}
             userSum={userSum}
             setUserSum={setUserSum}
-            />
+          />
         </TabPanel>
       </TabContext>
     </>

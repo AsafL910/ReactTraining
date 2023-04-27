@@ -1,4 +1,5 @@
 import BaseComponentProps from "@/types/BaseComponentProps";
+
 import { Dialog, DialogTitle, LinearProgress } from "@mui/material";
 
 interface OrderProgressModalProps extends BaseComponentProps {
@@ -13,7 +14,11 @@ const OrderProgressModal = (props: OrderProgressModalProps) => {
   return (
     <Dialog onClose={props.onClose} open={props.isOpen}>
       <DialogTitle>ההזמנה מתבצעת</DialogTitle>
-      <LinearProgress data-testid={`progress-bar_${props.testid}`} variant="determinate" value={progress} />
+      <LinearProgress
+        data-testid={`progress-bar_${props.testid}`}
+        variant="determinate"
+        value={progress}
+      />
     </Dialog>
   );
 };
