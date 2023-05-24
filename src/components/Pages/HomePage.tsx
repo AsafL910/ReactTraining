@@ -7,11 +7,11 @@ import { useState } from "react";
 import { Box, LinearProgress } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-import Alert from "./Alert";
-import ProductInfoModal from "./ProductInfoModal";
+import Alert from "../Alert";
+import ProductInfoModal from "../Modals/ProductInfoModal";
 
 interface HomePageProps extends BaseComponentProps {
-  cart: Array<Product>;
+  cart: Product[];
   addToCart: (p: Product) => void;
 }
 const HomePage = (props: HomePageProps) => {

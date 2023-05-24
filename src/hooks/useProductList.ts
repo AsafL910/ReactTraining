@@ -8,7 +8,7 @@ const useProductList = (): [
   (product: Product) => void,
   boolean
 ] => {
-  const [productList, setProductList] = useState<Array<Product>>([]);
+  const [productList, setProductList] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 

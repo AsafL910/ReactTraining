@@ -1,5 +1,5 @@
-import CartPage from "@/components/CartPage";
-import HomePage from "@/components/HomePage";
+import CartPage from "@/components/Pages/CartPage";
+import HomePage from "@/components/Pages/HomePage";
 import { useState } from "react";
 
 import { Home, ShoppingCart } from "@mui/icons-material";
@@ -12,6 +12,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 import "./App.css";
+import { useAppDispatch, useAppSelector } from "./state/hooks";
+import { addToCart } from "./state/reducers/cartReducer";
 import Product from "./types/Product";
 
 function App() {
@@ -20,13 +22,15 @@ function App() {
     setPageIndex(newValue);
   };
 
-  const [cart, setCart] = useState<Array<Product>>([]);
+  const cart = useAppSelector((state) => state.cart);
 
-  const addToCart = (p: Product): void => {
-    setCart([...cart, p]);
+  const cartDispatch = useAppDispatch();
+
+  const handleAddToCart = (p: Product): void => {
+    cartDispatch(addToCart(p));
   };
 
-  const [userSum, setUserSum] = useState<number>(1000);
+  const user = useAppSelector((state) => state.user);
 
   return (
     <>
@@ -35,7 +39,7 @@ function App() {
           <Typography
             data-testid={"total-sum_app-bar"}
             variant="h6"
-          >{`סכום כולל: ${userSum}₪`}</Typography>
+          >{`סכום כולל: ${user.cash.toFixed(2)}₪`}</Typography>
         </Toolbar>
       </AppBar>
       <TabContext value={pageIndex}>
@@ -44,16 +48,14 @@ function App() {
           <Tab label={<ShoppingCart />} value={"cart"} />
         </TabList>
         <TabPanel key={"home"} value="home">
-          <HomePage cart={cart} addToCart={addToCart} testid="home-page" />
+          <HomePage
+            cart={cart.items}
+            addToCart={handleAddToCart}
+            testid="home-page"
+          />
         </TabPanel>
         <TabPanel key={"cart"} value="cart">
-          <CartPage
-            testid="cart-page"
-            cart={cart}
-            setCart={setCart}
-            userSum={userSum}
-            setUserSum={setUserSum}
-          />
+          <CartPage testid="cart-page" />
         </TabPanel>
       </TabContext>
     </>
