@@ -1,6 +1,7 @@
 import Product from "@/types/Product";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 interface UserSlice {
   cash: number;
@@ -21,5 +22,7 @@ export const cartSlice = createSlice({
 });
 
 export const { orderProduct } = cartSlice.actions;
+
+export const selectCash = (state: RootState) => state.user.cash;
 
 export default cartSlice.reducer;

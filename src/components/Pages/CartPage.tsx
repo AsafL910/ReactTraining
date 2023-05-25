@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import { removeFromCart } from "@/state/reducers/cartReducer";
-import { orderProduct } from "@/state/reducers/userReducer";
+import { removeFromCart, selectCart, selectCartTotal } from "@/state/reducers/cartReducer";
+import { orderProduct, selectCash } from "@/state/reducers/userReducer";
 import BaseComponentProps from "@/types/BaseComponentProps";
 import Product from "@/types/Product";
 import { useState } from "react";
@@ -14,29 +14,25 @@ import CartItem from "../CartItem";
 import OrderProgressModal from "../Modals/OrderProgressModal";
 
 const CartPage = (props: BaseComponentProps) => {
-  const user = useAppSelector((state) => state.user);
-  const cart = useAppSelector((state) => state.cart);
+  const cash = useAppSelector(selectCash);
+  const cart = useAppSelector(selectCart);
+  const totalPrice = useAppSelector(selectCartTotal);
 
-  const cartDispatch = useAppDispatch();
-  const userDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const [isOrdering, setIsOrdering] = useState<boolean>(false);
   const [orderedProducts, setOrderedProducts] = useState<number>(0);
   const [isError, setIsError] = useState<boolean>(false);
   const [isOrderComplete, setIsOrderComplete] = useState<boolean>(false);
-  const [productCount, setProductCount] = useState<number>(cart.items.length);
+  const [productCount, setProductCount] = useState<number>(cart.length);
 
-  const totalPrice: number = cart.items.reduce(
-    (total: number, product: Product) => total + product.price,
-    0
-  );
 
-  const isCartEmpty: boolean = cart.items.length === 0;
+  const isCartEmpty: boolean = cart.length === 0;
 
   const orderProducts = () => {
-    if (user.cash >= totalPrice) {
+    if (cash >= totalPrice) {
       setIsOrdering(true);
-      cart.items.forEach((product: Product, index: number) =>
+      cart.forEach((product: Product, index: number) =>
         order(product, index)
       );
     } else {
@@ -47,9 +43,9 @@ const CartPage = (props: BaseComponentProps) => {
   const order = (p: Product, index: number) => {
     setTimeout(() => {
       setOrderedProducts((previous) => previous + 1);
-      userDispatch(orderProduct(p));
-      cartDispatch(removeFromCart(0));
-      if (index === cart.items.length - 1) {
+      dispatch(orderProduct(p));
+      dispatch(removeFromCart(0));
+      if (index === cart.length - 1) {
         setIsOrdering(false);
         setOrderedProducts(0);
         //TODO: success alert doesnt work here
@@ -71,12 +67,12 @@ const CartPage = (props: BaseComponentProps) => {
             onClick={orderProducts}
           >{`הזמן ${totalPrice.toFixed(2)}₪`}</Button>
           <List data-testid={`cart-list_${props.testid}`}>
-            {cart.items.map((product: Product, index: number) => (
+            {cart.map((product: Product, index: number) => (
               <CartItem
                 testid={`listitem-${index}_${props.testid}`}
                 index={index}
                 product={product}
-                onDeleteClick={() => cartDispatch(removeFromCart(index))}
+                onDeleteClick={() => dispatch(removeFromCart(index))}
               />
             ))}
           </List>

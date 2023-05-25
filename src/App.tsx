@@ -24,10 +24,10 @@ function App() {
 
   const cart = useAppSelector((state) => state.cart);
 
-  const cartDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const handleAddToCart = (p: Product): void => {
-    cartDispatch(addToCart(p));
+    dispatch(addToCart(p));
   };
 
   const user = useAppSelector((state) => state.user);
