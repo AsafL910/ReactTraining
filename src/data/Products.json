@@ -1,0 +1,99 @@
+[
+    {
+      "id": 1,
+      "name": "במבה",
+      "description": "לאכול עם מזלג בלבד כדי לא להתלכלך",
+      "price": 29.99,
+      "image": "src/images/bamba.png",
+      "category": "Food & Drink"
+    },
+    {
+      "id": 2,
+      "name": "שוקולד",
+      "description": "תיאור גנרי על שוקולד",
+      "price": 12.99,
+      "image": "src/images/chocolate.png",
+      "category": "Food & Drink"
+    },
+    {
+      "id": 3,
+      "name": "קולה",
+      "description": " קולה צוננת מהשקם שהייתה 40 דקות בפריזר וכעת בטמפרטורה המושלמת",
+      "price": 14.99,
+      "image": "src/images/cocacola.png",
+      "category": "Food & Drink"
+    },
+    {
+      "id": 4,
+      "name": "כלב",
+      "description": "כלב מדגם לא ידוע",
+      "price": 19.99,
+      "image": "src/images/doggo.png",
+      "category": "Animals"
+    },
+    {
+      "id": 5,
+      "name": "ירבוע",
+      "description": "החיה שכולם מכירים ומעריצים",
+      "price": 39.99,
+      "image": "src/images/jarboa.png",
+      "category": "Animals"
+    },
+    {
+      "id": 6,
+      "name": "חולצה של מסי",
+      "description": "Qué mirás bobo",
+      "price": 99.99,
+      "image": "src/images/messi-shirt.png",
+      "category": "Clothing"
+    },
+    {
+      "id": 7,
+      "name": "מטוס",
+      "description": "תיאור של מטוס",
+      "price": 33000000,
+      "image": "src/images/plane.png",
+      "category": "Home Goods"
+    },
+    {
+      "id": 8,
+      "name": "כפכף",
+      "description": "מיועד לזריקה על היוצאים לבהד 1",
+      "price": 6.99,
+      "image": "src/images/slippers.png",
+      "category": "Clothing"
+    },
+    {
+      "id": 9,
+      "name": "פיקאצ'ו שמן",
+      "description": "או בשמו הלועזי THICCachu",
+      "price": 4.99,
+      "image": "src/images/thiccachu.png",
+      "category": "Home Goods"
+    },
+    {
+      "id": 10,
+      "name": "שום כתוש",
+      "description": "זה מרענן כזה וואו",
+      "price": 9.99,
+      "image": "src/images/refreshingshum.png",
+      "category": "Food & Drink"
+    },
+    {
+      "id": 11,
+      "name": "לחם בלי קשה",
+      "description": "נחתך במוצאי שבת",
+      "price": 59.99,
+      "image": "src/images/bread.png",
+      "category": "Food & Drink"
+    },
+    {
+      "id": 12,
+      "name": "קוסקוס",
+      "description": "מיועד לאכילה בביוב",
+      "price": 24.99,
+      "image": "src/images/kuskus.png",
+      "category": "Food & Drink"
+    }
+  ]
+  

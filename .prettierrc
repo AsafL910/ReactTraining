@@ -1,0 +1,10 @@
+{
+    "importOrder": [
+      "^@mui/(.*)$",
+      "^@hooks/(.*)$",
+      "^@components/(.*)$",
+      "^[./]"
+    ],
+    "importOrderSeparation": true, 
+    "importOrderSortSpecifiers": true 
+}
