@@ -8,7 +8,7 @@ Your app should look and behave exactly like the one in this project, without lo
 
 ## Final Product:
 <img src="./src/images/home-page.png">
-<img src="./src/images/cart-page.png>
+<img src="./src/images/cart-page.png">
 
 ## What you need to learn before/during the work on this project: 
 * Javascript and ES6
