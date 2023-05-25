@@ -2,7 +2,7 @@
     {
       "id": 1,
       "name": "במבה",
-      "description": "התיאור שהיה על הבמבה",
+      "description": "לאכול עם מזלג בלבד כדי לא להתלכלך",
       "price": 29.99,
       "image": "src/images/bamba.png",
       "category": "Food & Drink"
@@ -10,7 +10,7 @@
     {
       "id": 2,
       "name": "שוקולד",
-      "description": "התיאור שהיה על השוקולד",
+      "description": "תיאור גנרי על שוקולד",
       "price": 12.99,
       "image": "src/images/chocolate.png",
       "category": "Food & Drink"
@@ -18,7 +18,7 @@
     {
       "id": 3,
       "name": "קולה",
-      "description": " קולה צוננת מהשקם שהייתה 10 דקות בפריזר וכעת בטמפרטורה המושלמת",
+      "description": " קולה צוננת מהשקם שהייתה 40 דקות בפריזר וכעת בטמפרטורה המושלמת",
       "price": 14.99,
       "image": "src/images/cocacola.png",
       "category": "Food & Drink"
@@ -66,7 +66,7 @@
     {
       "id": 9,
       "name": "פיקאצ'ו שמן",
-      "description": "A nourishing lip balm made with natural ingredients like beeswax and coconut oil.",
+      "description": "או בשמו הלועזי THICCachu",
       "price": 4.99,
       "image": "src/images/thiccachu.png",
       "category": "Home Goods"
@@ -77,6 +77,22 @@
       "description": "זה מרענן כזה וואו",
       "price": 9.99,
       "image": "src/images/refreshingshum.png",
+      "category": "Food & Drink"
+    },
+    {
+      "id": 11,
+      "name": "לחם בלי קשה",
+      "description": "נחתך במוצאי שבת",
+      "price": 59.99,
+      "image": "src/images/bread.png",
+      "category": "Food & Drink"
+    },
+    {
+      "id": 12,
+      "name": "קוסקוס",
+      "description": "מיועד לאכילה בביוב",
+      "price": 24.99,
+      "image": "src/images/kuskus.png",
       "category": "Food & Drink"
     }
   ]
