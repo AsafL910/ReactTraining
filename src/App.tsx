@@ -6,15 +6,15 @@ import { Home, ShoppingCart } from "@mui/icons-material";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { Tab } from "@mui/material";
+import { Tab, Badge } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 import "./App.css";
-import { useAppDispatch, useAppSelector } from "./state/hooks";
-import { addToCart } from "./state/reducers/cartReducer";
-import Product from "./types/Product";
+import { useAppSelector } from "./state/hooks";
+import { selectCartTotalCount } from "./state/reducers/cartReducer";
+import { selectCash } from "./state/reducers/userReducer";
 
 function App() {
   const [pageIndex, setPageIndex] = useState<string>("home");
@@ -22,25 +22,21 @@ function App() {
     setPageIndex(newValue);
   };
 
-  const cart = useAppSelector((state) => state.cart);
-
-  const dispatch = useAppDispatch();
-
-  const handleAddToCart = (p: Product): void => {
-    dispatch(addToCart(p));
-  };
-
-  const user = useAppSelector((state) => state.user);
+  const cartCount = useAppSelector(selectCartTotalCount);
+  const userCash = useAppSelector(selectCash);
 
   return (
     <>
-      <AppBar position="sticky">
-        <Toolbar>
+      <AppBar position="sticky" sx={{flexDirection :"row", justifyContent: "space-between"}}>
+        <Toolbar >
           <Typography
             data-testid={"total-sum_app-bar"}
             variant="h6"
-          >{`סכום כולל: ${user.cash.toFixed(2)}₪`}</Typography>
+          >{`סכום כולל: ${userCash.toFixed(2)}₪`}</Typography>
         </Toolbar>
+        <Badge sx={{margin: "20px"}} badgeContent={cartCount} color="warning">
+        <ShoppingCart color="action" />
+    </Badge>
       </AppBar>
       <TabContext value={pageIndex}>
         <TabList value={pageIndex} onChange={handleChange}>
@@ -49,8 +45,6 @@ function App() {
         </TabList>
         <TabPanel key={"home"} value="home">
           <HomePage
-            cart={cart.items}
-            addToCart={handleAddToCart}
             testid="home-page"
           />
         </TabPanel>

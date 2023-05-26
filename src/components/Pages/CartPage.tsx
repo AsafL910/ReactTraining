@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/state/hooks";
-import { removeFromCart, selectCart, selectCartTotal } from "@/state/reducers/cartReducer";
+import { removeFromCart, selectCart, selectCartTotalPrice } from "@/state/reducers/cartReducer";
 import { orderProduct, selectCash } from "@/state/reducers/userReducer";
 import BaseComponentProps from "@/types/BaseComponentProps";
 import Product from "@/types/Product";
@@ -11,55 +11,56 @@ import List from "@mui/material/List";
 
 import Alert from "../Alert";
 import CartItem from "../CartItem";
-import OrderProgressModal from "../Modals/OrderProgressModal";
+import OrderProgressBar from "../Modals/OrderProgressBar";
+import OrderCompleteModal from "../Modals/OrderCompleteModal";
+
+type OrderStatus = "none" | "ordering" | "complete" | "error";
 
 const CartPage = (props: BaseComponentProps) => {
   const cash = useAppSelector(selectCash);
   const cart = useAppSelector(selectCart);
-  const totalPrice = useAppSelector(selectCartTotal);
+  const totalPrice = useAppSelector(selectCartTotalPrice);
 
   const dispatch = useAppDispatch();
 
-  const [isOrdering, setIsOrdering] = useState<boolean>(false);
+  const [orderStatus, setOrderStatus] = useState<OrderStatus>("none");
   const [orderedProducts, setOrderedProducts] = useState<number>(0);
-  const [isError, setIsError] = useState<boolean>(false);
-  const [isOrderComplete, setIsOrderComplete] = useState<boolean>(false);
   const [productCount, setProductCount] = useState<number>(cart.length);
-
 
   const isCartEmpty: boolean = cart.length === 0;
 
-  const orderProducts = () => {
+  const order = async (p: Product) => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    
+    setOrderedProducts((previous) => previous + 1);
+    dispatch(orderProduct(p));
+    dispatch(removeFromCart(0));
+  };
+  
+  const orderProducts = async () => {
     if (cash >= totalPrice) {
-      setIsOrdering(true);
-      cart.forEach((product: Product, index: number) =>
-        order(product, index)
-      );
+      setOrderStatus("ordering");
+      for (let i = 0; i < cart.length; i++) {
+        await order(cart[i]);
+      }
+      setOrderStatus("complete");
+      setOrderedProducts(0);
     } else {
-      setIsError(true);
+      setOrderStatus("error");
     }
   };
-
-  const order = (p: Product, index: number) => {
-    setTimeout(() => {
-      setOrderedProducts((previous) => previous + 1);
-      dispatch(orderProduct(p));
-      dispatch(removeFromCart(0));
-      if (index === cart.length - 1) {
-        setIsOrdering(false);
-        setOrderedProducts(0);
-        //TODO: success alert doesnt work here
-        setIsOrderComplete(true);
-      }
-    }, index * 500);
-  };
-
   return (
     <>
+    <OrderCompleteModal
+      testid={`order-complete-modal_${props.testid}`}
+      isOpen={orderStatus === "complete"}
+      handleClose={() => setOrderStatus("none")}
+      text="תתחדש/י!"
+      />
       {isCartEmpty ? (
         <Typography>העגלה ריקה</Typography>
-      ) : (
-        <>
+        ) : (
+          <>
           <Button
             data-testid={`order-button_${props.testid}`}
             variant="contained"
@@ -76,26 +77,18 @@ const CartPage = (props: BaseComponentProps) => {
               />
             ))}
           </List>
-          <OrderProgressModal
-            testid={`order-modal_${props.testid}`}
-            isOpen={isOrdering}
-            onClose={() => setIsOrdering(false)}
+
+          <OrderProgressBar
+            testid={`order-bar_${props.testid}`}
+            isOpen={orderStatus === "ordering"}
             value={orderedProducts}
             maxValue={productCount}
           />
           <Alert
             testid={`alert-error_${props.testid}`}
-            isOpen={isError}
-            handleClose={() => setIsError(false)}
+            isOpen={orderStatus === "error"}
             severity="error"
-            message="ההזמנה לא הושלמה"
-          />
-          <Alert
-            testid={`alert-success_${props.testid}`}
-            isOpen={isOrderComplete}
-            handleClose={() => setIsOrderComplete(false)}
-            severity="success"
-            message="ההזמנה הושלמה"
+            children={<span>ההזמנה לא הושלמה</span>}
           />
         </>
       )}

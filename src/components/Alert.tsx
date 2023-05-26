@@ -2,12 +2,12 @@ import BaseComponentProps from "@/types/BaseComponentProps";
 
 import { Snackbar } from "@mui/material";
 import MuiAlert, { AlertColor } from "@mui/material/Alert";
+import {ReactNode} from "react"
 
 interface AlertProps extends BaseComponentProps {
   isOpen: boolean;
-  handleClose: () => void;
   severity: AlertColor;
-  message: string;
+  children: ReactNode;
 }
 
 const Alert = (props: AlertProps) => {
@@ -15,16 +15,16 @@ const Alert = (props: AlertProps) => {
     <Snackbar
       open={props.isOpen}
       autoHideDuration={3000}
-      onClose={props.handleClose}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <MuiAlert
+        icon={false}
         data-testid={props.testid}
-        onClose={props.handleClose}
         variant="filled"
         severity={props.severity}
-        sx={{ width: "100%" }}
+        slotProps={{closeButton: { sx: {display: "none"}}}}
       >
-        {props.message}
+        {props.children}
       </MuiAlert>
     </Snackbar>
   );
