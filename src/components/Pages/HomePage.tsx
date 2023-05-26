@@ -7,19 +7,21 @@ import { useState } from "react";
 import { Box, LinearProgress } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-import Alert from "../Alert";
 import ProductInfoModal from "../Modals/ProductInfoModal";
+import { addToCart } from "@/state/reducers/cartReducer";
+import { useAppDispatch } from "@/state/hooks";
 
-interface HomePageProps extends BaseComponentProps {
-  cart: Product[];
-  addToCart: (p: Product) => void;
-}
-const HomePage = (props: HomePageProps) => {
+const HomePage = (props: BaseComponentProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
 
   const [productList, selectedProduct, setSelectedProduct, isLoading] =
     useProductList();
+
+  const dispatch = useAppDispatch();
+
+  const handleAddToCart = (p: Product): void => {
+    dispatch(addToCart(p));
+  };
 
   return (
     <Grid container rowSpacing={3} columnSpacing={2} justifyContent={"center"}>
@@ -34,8 +36,7 @@ const HomePage = (props: HomePageProps) => {
                 setSelectedProduct(p);
               }}
               onAddToCart={() => {
-                props.addToCart(p);
-                setIsAddedToCart(true);
+                handleAddToCart(p);
               }}
             />
           </Grid>
@@ -52,16 +53,9 @@ const HomePage = (props: HomePageProps) => {
         product={selectedProduct}
         addToCart={() => {
           if (selectedProduct) {
-            props.addToCart(selectedProduct);
+            handleAddToCart(selectedProduct);
           }
         }}
-      />
-      <Alert
-        testid={`add-cart-alert_${props.testid}`}
-        isOpen={isAddedToCart}
-        handleClose={() => setIsAddedToCart(false)}
-        message={`המוצר נוסף לעגלה`}
-        severity="success"
       />
     </Grid>
   );
