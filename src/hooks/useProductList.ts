@@ -1,6 +1,6 @@
-import productsData from "@/data/Products.json";
-import Product from "@/types/Product";
-import { useEffect, useState } from "react";
+import productsData from '@/data/Products.json';
+import Product from '@/types/Product';
+import { useEffect, useState } from 'react';
 
 const useProductList = (): [
   Product[],
@@ -21,7 +21,7 @@ const useProductList = (): [
           description: productData.description,
           price: productData.price,
           image: productData.image,
-          category: productData.category,
+          category: productData.category
         }));
 
         setProductList(data);

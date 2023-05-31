@@ -6,5 +6,8 @@
       "^[./]"
     ],
     "importOrderSeparation": true, 
-    "importOrderSortSpecifiers": true 
+    "importOrderSortSpecifiers": true,
+    "singleQuote": true,
+    "bracketSameLine": true,
+    "trailingComma": "none"
 }

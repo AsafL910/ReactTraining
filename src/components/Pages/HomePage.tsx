@@ -1,15 +1,15 @@
-import ProductCard from "@/components/ProductCard";
-import useProductList from "@/hooks/useProductList";
-import BaseComponentProps from "@/types/BaseComponentProps";
-import Product from "@/types/Product";
-import { useState } from "react";
+import ProductCard from '@/components/ProductCard';
+import useProductList from '@/hooks/useProductList';
+import { useAppDispatch } from '@/state/hooks';
+import { addToCart } from '@/state/reducers/cartReducer';
+import BaseComponentProps from '@/types/BaseComponentProps';
+import Product from '@/types/Product';
+import { useState } from 'react';
 
-import { Box, LinearProgress } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Box, LinearProgress } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
-import ProductInfoModal from "../Modals/ProductInfoModal";
-import { addToCart } from "@/state/reducers/cartReducer";
-import { useAppDispatch } from "@/state/hooks";
+import ProductInfoModal from '../Modals/ProductInfoModal';
 
 const HomePage = (props: BaseComponentProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const HomePage = (props: BaseComponentProps) => {
   };
 
   return (
-    <Grid container rowSpacing={3} columnSpacing={2} justifyContent={"center"}>
+    <Grid container rowSpacing={3} columnSpacing={2} justifyContent={'center'}>
       {!isLoading ? (
         productList.map((p: Product, index: number) => (
           <Grid item key={p.id}>
@@ -42,7 +42,7 @@ const HomePage = (props: BaseComponentProps) => {
           </Grid>
         ))
       ) : (
-        <Box sx={{ width: "90%", float: "center", marginTop: "200px" }}>
+        <Box sx={{ width: '90%', float: 'center', marginTop: '200px' }}>
           <LinearProgress />
         </Box>
       )}

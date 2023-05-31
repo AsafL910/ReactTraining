@@ -1,10 +1,9 @@
-import BaseComponentProps from "@/types/BaseComponentProps";
+import BaseComponentProps from '@/types/BaseComponentProps';
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-
-import DialogTitle from "@mui/material/DialogTitle";
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 
 interface OrderCompleteModal extends BaseComponentProps {
   text: string;
@@ -13,7 +12,6 @@ interface OrderCompleteModal extends BaseComponentProps {
 }
 
 const OrderCompleteModal = (props: OrderCompleteModal) => {
-
   return (
     <Dialog open={props.isOpen} onClose={props.handleClose}>
       <DialogTitle>{props.text}</DialogTitle>
